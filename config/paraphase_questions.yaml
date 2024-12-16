@@ -1,0 +1,13 @@
+task_name: test_data_gen
+pipelines:
+  - name: paraphase_questions
+    task: paraphase_questions
+    inputs:
+      source:
+        type: csv
+        path: "/Users/rajatmishra/Development/HDFC/aegis-shield/data/test_data.csv"
+    outputs:
+      destination:
+        type: json
+        path: "/Users/rajatmishra/Development/HDFC/aegis-shield/output/generated_questions.json"
+

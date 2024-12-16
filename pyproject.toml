@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "aegis-shield"
+version = "0.1.0"
+description = ""
+authors = ["Rajat Mishra <mishra.rajat91@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.13"
+pandas = "^2.2.3"
+transformers = "^4.47.0"
+torch = "^2.5.1"
+parrot = {git = "https://github.com/PrithivirajDamodaran/Parrot_Paraphraser.git"}
+protobuf = "^5.29.1"
+pyyaml = "^6.0.2"
+typer = "^0.15.1"
+sklearn-pandas = "^2.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.1"
+isort = "^5.13.2"
+httpx = "0.28.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
