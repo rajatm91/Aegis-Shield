@@ -1,14 +1,14 @@
 import traceback
 from functools import reduce
+from typing import Dict
 
 from pandas import DataFrame
 
 from aegis_shield.common.io_utils import read_data, write_data
 from aegis_shield.utils.registry import Registry
-from typing import Dict
+
 
 def execute_step(accumulated_result: DataFrame, step: Dict):
-
     """
     Execute a single pipeline step
     """
@@ -17,16 +17,22 @@ def execute_step(accumulated_result: DataFrame, step: Dict):
         func_name = step["task"]
         inputs = step.get("inputs", {})
         outputs = step.get("outputs", {})
+        extra_params = step.get("extra_args", {})
 
         input_data = read_data(inputs.get("source"))
         print(f"Input data : {input_data}")
         task = Registry.get_function(func_name)
 
-        print(f"Running step: {step.get('name', 'Unnamed Step')} using function: {func_name}")
+        print(
+            f"Running step: {step.get('name', 'Unnamed Step')} using function: {func_name}"
+        )
 
-        result = task(input_data)
+        if extra_params:
+            result = task(input_data, **extra_params)
+        else:
+            result = task(input_data)
 
-        print("#"*30)
+        print("#" * 30)
         print(result)
 
         unique_result = result.drop_duplicates()
@@ -41,7 +47,9 @@ def execute_step(accumulated_result: DataFrame, step: Dict):
     except Exception as e:
         print(f"Error in step '{step.get('name', 'Unnamed Step')}': {e}")
         traceback.print_exc()
-        raise RuntimeError(f"Pipeline execution stopped due to error in step '{step.get('name')}'.")
+        raise RuntimeError(
+            f"Pipeline execution stopped due to error in step '{step.get('name')}'."
+        )
 
 
 def run_pipeline(config: Dict):
@@ -54,7 +62,3 @@ def run_pipeline(config: Dict):
         print(f"Task '{config['task_name']}' completed successfully.")
     except RuntimeError as e:
         print(f"Pipeline execution terminated: {e}")
-
-
-
-

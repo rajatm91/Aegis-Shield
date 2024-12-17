@@ -1,9 +1,11 @@
 # common/registry.py
 
+
 class Registry:
     """
     A central registry to manage and retrieve functions by name.
     """
+
     _registry = {}
 
     @classmethod
@@ -11,9 +13,11 @@ class Registry:
         """
         Decorator to register a function in the registry with the given name.
         """
+
         def decorator(func):
             cls._registry[name] = func
             return func
+
         return decorator
 
     @classmethod
@@ -23,7 +27,9 @@ class Registry:
         """
         if name not in cls._registry:
             available_functions = ", ".join(cls._registry.keys())
-            raise ValueError(f"Function '{name}' is not registered.Available functions: {available_functions}")
+            raise ValueError(
+                f"Function '{name}' is not registered.Available functions: {available_functions}"
+            )
         func_or_class = cls._registry[name]
         if isinstance(func_or_class, type):
             return func_or_class()
