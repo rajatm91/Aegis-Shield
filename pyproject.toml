@@ -15,6 +15,7 @@ protobuf = "^5.29.1"
 pyyaml = "^6.0.2"
 typer = "^0.15.1"
 sklearn-pandas = "^2.2.0"
+fastembed = "^0.4.2"
 
 
 [tool.poetry.group.dev.dependencies]

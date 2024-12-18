@@ -1,10 +1,11 @@
 # common/io_utils.py
+import json
 from pathlib import Path
 
 import pandas as pd
-import json
 
-def read_data(source):
+
+def read_data(source: dict):
     """
     Reads data from the specified source.
     Supports: JSON, CSV, database connections, etc.
@@ -25,6 +26,7 @@ def read_data(source):
         return pd.read_sql(query, connection_details)
     else:
         raise ValueError(f"Unsupported source type: {source_type}")
+
 
 def write_data(data, destination):
     """

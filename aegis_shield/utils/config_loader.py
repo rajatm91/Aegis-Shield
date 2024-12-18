@@ -32,6 +32,7 @@ import yaml
 #             raise ValueError(f"Environment variable '{env_var}' is not set.")
 #         return resolved_value
 
+
 def load_config_with_env_vars(config_path: Path):
     """
     Load a YAML configuration file and resolve environment variables.

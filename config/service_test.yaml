@@ -1,0 +1,31 @@
+task_name: test_faq_bot
+pipelines:
+#  - name: paraphrase_questions
+#    task: paraphase_questions
+#    inputs:
+#      source:
+#        type: csv
+#        path: "data/test_data.csv"
+#    outputs:
+#      destination:
+#        type: csv
+#        path: "output/paraphrased_questions.csv"
+
+  - name: guardrailTest
+    task: service_validator
+    inputs:
+      source:
+        type: csv
+        path: "output/paraphrased_questions.csv"
+    outputs:
+      destination:
+        type: json
+        path: "output/api_results.csv"
+    extra_args:  # Additional arguments required for ApiUploader
+      url: "https://example.com/api/upload"
+      request_type: "POST"
+      payload:
+        guardrail_id: 12345  # Static value
+        prompt_text: "paraphrase"  # Dynamic value (column name from input data)
+      required_columns:
+        - paraphrase
